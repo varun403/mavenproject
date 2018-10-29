@@ -8,7 +8,7 @@ node('mavenbuilds'){
         echo "Cloning Successful"
     }
     stage('Tests'){
-        sh "{$mvnHome}/bin/mvn clean test"
+        sh "$mvnHome/bin/mvn clean test"
     }
     
     stage('Build'){
