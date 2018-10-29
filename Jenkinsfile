@@ -14,6 +14,10 @@ node('mavenbuilds'){
         junit 'target/surefire-reports/*.xml'
     }
     
+    stage('Analysis'){
+        sh "$mvnHome/bin/mvn sonar:sonar surefire-report:report-only"
+    }
+    
     stage('Build'){
         echo "Build is started"
         sh "${mvnHome}/bin/mvn clean package"
