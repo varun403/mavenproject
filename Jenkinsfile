@@ -8,6 +8,7 @@ node('mavenbuilds'){
         echo "Executing Test Cases"
         sh "${mvnHome}/bin/mvn clean test"
         archiveArtifacts allowEmptyArchive: true, artifacts: 'target/surefire-reports/*'
+        junit allowEmptyResults: true, testResults: 'target/surefire-reports/*.xml'
     }
     stage('Build'){
         echo "Building the job now"
