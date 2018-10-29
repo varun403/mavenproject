@@ -10,8 +10,8 @@ node('mavenbuilds'){
     stage('Tests'){
         sh "$mvnHome/bin/mvn clean test"
         sh "ls -latr target/"
-        junit allowEmptyResults: true, testResults: 'target/surefire-reports/*.xml'
-        archiveArtifacts 'target/surefire-reports/*'
+        archive "target/**/*"
+        junit 'target/surefire-reports/*.xml'
     }
     
     stage('Build'){
