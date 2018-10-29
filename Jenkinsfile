@@ -16,6 +16,7 @@ node('mavenbuilds'){
     
     stage('Analysis'){
         sh "$mvnHome/bin/mvn sonar:sonar surefire-report:report-only"
+        sh "ls -latr target/site/surefire-report/"
     }
     
     stage('Build'){
