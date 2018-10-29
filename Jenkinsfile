@@ -1,6 +1,11 @@
+def Build(){
+    echo "inside Build printing"
+}
 node('mavenbuilds'){
     def mvnHome = tool 'maven354'
-
+    stage('Building'){
+        Build()
+    }
     stage('Checkout'){
         deleteDir()
         echo "Cloning my Git Repo"
