@@ -11,6 +11,7 @@ node('mavenbuilds'){
         sh "$mvnHome/bin/mvn clean test"
         sh "ls -latr target/"
         junit allowEmptyResults: true, testResults: 'target/surefire-reports/*.xml'
+        archiveArtifacts 'target/surefire-reports/*'
     }
     
     stage('Build'){
