@@ -9,6 +9,7 @@ node('mavenbuilds'){
     }
     stage('Tests'){
         sh "$mvnHome/bin/mvn clean test"
+        sh " ls -latr target/
     }
     
     stage('Build'){
