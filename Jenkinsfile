@@ -8,14 +8,15 @@ node('mavenbuilds'){
         echo "Cloning Successful"
     }
     stage('Tests'){
-        sh "$mvnHome/bin/mvn clean test"
+        sh "$mvnHome/bin/mvn clean test surefire-report:report-only"
         sh "ls -latr target/"
-        archive "target/**/*"
-        junit 'target/surefire-reports/*.xml'
+        //archive "target/**/*"
+        //junit 'target/surefire-reports/*.xml'
+        publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, keepAll: false, reportDir: 'target/site/', reportFiles: 'surefire-report.html', reportName: 'HTML_Report', reportTitles: ''])
     }
     
     stage('Analysis'){
-        sh "$mvnHome/bin/mvn sonar:sonar surefire-report:report-only"
+        //sh "$mvnHome/bin/mvn sonar:sonar surefire-report:report-only"
         sh "ls -latr target/site/surefire-report/"
     }
     
