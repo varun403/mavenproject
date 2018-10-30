@@ -13,7 +13,7 @@ node('mavenbuilds'){
     }
     stage('Build'){
         echo "Building the job now"
-        sh "${mvnHome}/bin/mvn package"
+        sh "${mvnHome}/bin/mvn package -DskipTests=true"
     }
     stage('Post Build Actions'){
         echo "Sending an email to user"
