@@ -9,10 +9,11 @@ node('mavenbuilds'){
         sh "${mvnHome}/bin/mvn clean test surefire-report:report-only"
         archiveArtifacts allowEmptyArchive: true, artifacts: 'target/surefire-reports/*'
         junit allowEmptyResults: true, testResults: 'target/surefire-reports/*.xml'
+        publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, keepAll: false, reportDir: 'target/site/', reportFiles: 'surefire-report.html', reportName: 'HTMLReport', reportTitles: ''])
     }
     stage('Build'){
         echo "Building the job now"
-        sh "${mvnHome}/bin/mvn clean package"
+        sh "${mvnHome}/bin/mvn package"
     }
     stage('Post Build Actions'){
         echo "Sending an email to user"
