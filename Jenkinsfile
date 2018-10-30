@@ -26,3 +26,4 @@ node('mavenbuilds'){
 // Configure Agent (in master, as a node)
 // Setup Agent (Install jdk, maven) {wget, tar, alternatives}
 // Manage Jenkins --> Global Tool Configuration (Maven installations)
+//
