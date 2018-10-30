@@ -11,6 +11,7 @@ node('mavenbuilds'){
         junit allowEmptyResults: true, testResults: 'target/surefire-reports/*.xml'
         publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, keepAll: false, reportDir: 'target/site/', reportFiles: 'surefire-report.html', reportName: 'HTMLReport', reportTitles: ''])
     }
+    input 'Do you want to perform build?'
     stage('Build'){
         echo "Building the job now"
         sh "${mvnHome}/bin/mvn package -DskipTests=true"
