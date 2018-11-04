@@ -6,7 +6,7 @@ node('maven'){
     }
     stage('Executing Test Cases'){
         echo "Execuring Test Cases Started"
-        sh "$mvnHome/bin/mvn clean test"
+        sh "$mvnHome/bin/mvn clean test surefire-report:report-only"
         archiveArtifacts 'target/**/*'
         junit allowEmptyResults: true, testResults: 'target/surefire-reports/*.xml'
         echo "Executing Test Cases Completed"
