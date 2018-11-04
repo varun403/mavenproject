@@ -16,4 +16,7 @@ node('maven'){
         echo "Preparing artifacts"
         sh "$mvnHome/bin/mvn package -DskipTests=true"
     }
+    stage('Notification'){
+        echo "Notify me"
+    }
 }
