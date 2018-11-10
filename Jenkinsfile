@@ -19,4 +19,7 @@ node('maven'){
     stage('Notification'){
         echo "Notify me"
     }
+    stage('testing the stage'){
+        echo "Hey"
+    }
 }
