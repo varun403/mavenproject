@@ -1,4 +1,4 @@
-node('maven'){
+node('mavenec2'){
     def mvnHome = tool name: 'maven360', type: 'maven'
     stage('checkout'){
         echo "Checking the Git code"
@@ -18,8 +18,5 @@ node('maven'){
     }
     stage('Notification'){
         echo "Notify me"
-    }
-    stage('testing the stage'){
-        echo "Hey"
     }
 }
