@@ -1,25 +1,29 @@
-node('maven'){
-    def mvnHome = tool name: 'maven360', type: 'maven'
-    stage('checkout'){
-        echo "Checking the Git code"
-        git credentialsId: 'lokigithubapikey', url: 'https://github.com/lokeshkamalay/simple-java-maven-app.git'
+node('mavenec2'){
+    def mvnHome = tool name: 'maven354', type: 'maven'
+    stage('Checkout'){
+        echo "Downloading the source code"
+        git credentialsId: 'githubaccount', url: 'https://github.com/lokeshkamalay/simple-java-maven-app.git'
     }
-    stage('Executing Test Cases'){
-        echo "Execuring Test Cases Started"
-        sh "$mvnHome/bin/mvn clean test surefire-report:report-only"
-        archiveArtifacts 'target/**/*'
+    stage('Execute Test Cases'){
+        echo "Executing Test Cases"
+        sh "${mvnHome}/bin/mvn clean test surefire-report:report-only"
+        archiveArtifacts allowEmptyArchive: true, artifacts: 'target/**/*'
         junit allowEmptyResults: true, testResults: 'target/surefire-reports/*.xml'
-        publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, keepAll: false, reportDir: 'target/site', reportFiles: 'surefire-report.html', reportName: 'SureFireReportHTML', reportTitles: ''])
-        echo "Executing Test Cases Completed"
+        publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, keepAll: false, reportDir: 'target/site/', reportFiles: 'surefire-report.html', reportName: 'HTMLReport', reportTitles: ''])
     }
-    stage('Packaging'){
-        echo "Preparing artifacts"
-        sh "$mvnHome/bin/mvn package -DskipTests=true"
+    stage('Build'){
+        echo "Building the job now"
+        sh "${mvnHome}/bin/mvn package -DskipTests=true"
     }
-    stage('Notification'){
-        echo "Notify me"
-    }
-    stage('testing the stage'){
-        echo "Hey"
+    stage('Post Build Actions'){
+        echo "Sending an email to user"
     }
 }
+
+
+// Create Master
+// Create Agent
+// Configure Agent (in master, as a node)
+// Setup Agent (Install jdk, maven) {wget, tar, alternatives}
+// Manage Jenkins --> Global Tool Configuration (Maven installations)
+//
