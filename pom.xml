@@ -45,14 +45,14 @@
 </reporting>
 <distributionManagement>
     <repository>
-        <id>central</id>
-        <name>064f3ed57570-releases</name>
-        <url>http://40d2eb44.ngrok.io/artifactory/maven</url>
+        <id>artifactory-releases</id>
+        <name>maven</name>
+        <url>http://localhost:8081/artifactory/maven</url>
     </repository>
     <snapshotRepository>
-        <id>snapshots</id>
-        <name>064f3ed57570-snapshots</name>
-        <url>http://40d2eb44.ngrok.io/artifactory/maven</url>
+        <id>artifactory-snapshots</id>
+        <name>artifactory</name>
+        <url>http://localhost:8081/artifactory/maven</url>
     </snapshotRepository>
 </distributionManagement>  
 </project>
