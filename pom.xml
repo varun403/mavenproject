@@ -43,4 +43,16 @@
         </plugin>
     </plugins>
 </reporting>
+<distributionManagement>
+    <repository>
+        <id>central</id>
+        <name>064f3ed57570-releases</name>
+        <url>http://localhost:8081/artifactory/maven</url>
+    </repository>
+    <snapshotRepository>
+        <id>snapshots</id>
+        <name>064f3ed57570-snapshots</name>
+        <url>http://localhost:8081/artifactory/maven</url>
+    </snapshotRepository>
+</distributionManagement>  
 </project>
