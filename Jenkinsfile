@@ -19,4 +19,7 @@ node('mavenbuilds'){
         echo "Preparing artifacts"
         sh "$mvnHome/bin/mvn package -DskipTests=true"
     }
+    stage('Push to artifactory"){
+          sh "$mvnHome/bin/mvn deploy -DskipTests=true"
+    }
 }
