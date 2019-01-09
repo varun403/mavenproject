@@ -1,5 +1,5 @@
 node('mavenbuilds'){
-    def mvnHome = tool name: 'maven360', type: 'maven'
+    def mvnHome = tool name: 'maven354', type: 'maven'
     stage('checkout'){
         echo "Checking the Git code"
         git credentialsId: 'lokigithubapikey', url: 'https://github.com/lokeshkamalay/simple-java-maven-app.git'
