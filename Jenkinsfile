@@ -1,4 +1,4 @@
-node('maven'){
+node('mavenbuilds'){
     def mvnHome = tool name: 'maven360', type: 'maven'
     stage('checkout'){
         echo "Checking the Git code"
@@ -11,6 +11,9 @@ node('maven'){
         junit allowEmptyResults: true, testResults: 'target/surefire-reports/*.xml'
         publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, keepAll: false, reportDir: 'target/site', reportFiles: 'surefire-report.html', reportName: 'SureFireReportHTML', reportTitles: ''])
         echo "Executing Test Cases Completed"
+    }
+    stage('Sonar Analysis'){
+        sh "$mvnHome/bin/mvn sonar:sonar -Dsonar.host.url=http://aefdc217.ngrok.io -Dsonar.login=d08d80d05ae55ae9de4ca22bc2fd5140c1308ee2"
     }
     stage('Packaging'){
         echo "Preparing artifacts"
