@@ -12,9 +12,9 @@ node('mavenbuilds'){
         publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, keepAll: false, reportDir: 'target/site', reportFiles: 'surefire-report.html', reportName: 'SureFireReportHTML', reportTitles: ''])
         echo "Executing Test Cases Completed"
     }
-    stage('Sonar Analysis'){
-        sh "$mvnHome/bin/mvn sonar:sonar -Dsonar.host.url=http://aefdc217.ngrok.io -Dsonar.login=d08d80d05ae55ae9de4ca22bc2fd5140c1308ee2"
-    }
+    //stage('Sonar Analysis'){
+    //    sh "$mvnHome/bin/mvn sonar:sonar -Dsonar.host.url=http://aefdc217.ngrok.io -Dsonar.login=d08d80d05ae55ae9de4ca22bc2fd5140c1308ee2"
+    //}
     stage('Packaging'){
         echo "Preparing artifacts"
         sh "$mvnHome/bin/mvn package -DskipTests=true"
