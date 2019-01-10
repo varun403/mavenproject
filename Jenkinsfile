@@ -25,7 +25,7 @@ node('mavenbuilds'){
     stage('Deployments'){
         sh 'curl http://fa1b7800.ngrok.io/artifactory/maven-local/com/mycompany/app/my-app/1-RELEASE/my-app-1-RELEASE.jar -o my-app.jar'
         sshagent(['deployment-id']) {
-            sh 'scp -o StrictHostKeyChecking=no my-app.jar ubuntu@172.31.94.69:/~'
+            sh 'scp -o StrictHostKeyChecking=no my-app.jar ubuntu@172.31.94.69:~/'
         }
 
     }
