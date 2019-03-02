@@ -8,7 +8,7 @@ node('maven'){
     
     
     stage('Running Tests'){
-        sh "$maven360Home/bin/mvn clean test surefire-report:report-only"
+        sh "$maven360home/bin/mvn clean test surefire-report:report-only"
         junit allowEmptyResults: true, testResults: 'target/surefire-reports/*.xml'
     }
     
