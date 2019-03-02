@@ -10,6 +10,9 @@ node('maven'){
         sh "$maven360home/bin/mvn clean package"
     }
     
+    stage('Test Results'){
+        junit 'target/surefire-reports/*.xml'
+    }
     stage('Archive Artifacts'){
         archiveArtifacts '**/target/*.jar'
     }
