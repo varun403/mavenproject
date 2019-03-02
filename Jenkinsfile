@@ -9,4 +9,8 @@ node('maven'){
     stage('Building'){
         sh "$maven360home/bin/mvn clean package"
     }
+    
+    stage('Archive Artifacts'){
+        archiveArtifacts '**/target/*.jar'
+    }
 }
