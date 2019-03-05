@@ -14,12 +14,14 @@ node('maven'){
     }
     
     stage('Building'){
-        sh "$maven360home/bin/mvn clean package"
+        sh "$maven360home/bin/mvn clean package -DskipTests=true"
     }
-
-        //publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, keepAll: false, reportDir: 'target/site', reportFiles: 'surefire-report.html', reportName: 'SureFireReportHTML', reportTitles: ''])
   
     stage('Archive Artifacts'){
         archiveArtifacts '**/target/*.jar'
+    }
+    
+    stage('Deployment'){
+    
     }
 }
