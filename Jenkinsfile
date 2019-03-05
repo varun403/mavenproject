@@ -25,7 +25,7 @@ node('maven'){
         sshagent(['deployusr-target']) {
             sh "ssh -o StrictHostKeyChecking=no deployusr@172.31.34.148 /opt/tomcat/stop.sh"
             //sh "scp -o StrictHostKeyChecking=no target/my-app-1-RELEASE.jar	deployusr@172.31.34.148:/opt/tomcat/webapp/"
-            sh "scp -o StrictHostKeyChecking=no index.html deployusr@172.31.34.148:/var/www/html/"
+            sh "scp -o StrictHostKeyChecking=no index.html deployusr@172.31.34.148:/opt/tomcat/html/"
             sh "ssh -o StrictHostKeyChecking=no deployusr@172.31.34.148 /opt/tomcat/start.sh"
         }
     }
