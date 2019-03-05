@@ -22,6 +22,8 @@ node('maven'){
     }
     
     stage('Deployment'){
-    
+        sshagent(['deployusr-target']) {
+            sh "scp -o StrictHostKeyChecking=no target/my-app-1-RELEASE.jar	deployusr@172.31.34.148:/opt/tomcat/"
+        }
     }
 }
