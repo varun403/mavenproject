@@ -21,12 +21,10 @@ node('maven'){
         archiveArtifacts '**/target/*.jar'
     }
     
+
     stage('Deployment'){
-        sshagent(['deployusr-target']) {
-            sh "ssh -o StrictHostKeyChecking=no deployusr@172.31.34.148 /opt/tomcat/stop.sh"
-            //sh "scp -o StrictHostKeyChecking=no target/my-app-1-RELEASE.jar	deployusr@172.31.34.148:/opt/tomcat/webapp/"
-            sh "scp -o StrictHostKeyChecking=no index.html deployusr@172.31.34.148:/opt/tomcat/html/"
-            sh "ssh -o StrictHostKeyChecking=no deployusr@172.31.34.148 /opt/tomcat/start.sh"
+        sshagent(['project-demo-ssh-key']) {
+            sh "scp -o StrictHostKeyChecking=no target/my-app-1-RELEASE.jar deployuser@3.80.193.6:/home/deployuser/"
         }
     }
 }
