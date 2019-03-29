@@ -20,8 +20,14 @@ node('maven'){
     stage('Archive Artifacts'){
         archiveArtifacts '**/target/*.jar'
     }
-    
 
+
+    stage('Backup the JAR') {
+        withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', accessKeyVariable: 'AWS_ACCESS_KEY_ID', credentialsId: 'aws-cli-2', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY']]) {
+            sh "aws s3 cp target/my-app-1-RELEASE.jar s3://lokeshkamalay/"
+        }
+    }
+    
     stage('Deployment'){
         sshagent(['project-demo-ssh-key']) {
             sh "scp -o StrictHostKeyChecking=no target/my-app-1-RELEASE.jar deployuser@3.80.193.6:/home/deployuser/"
