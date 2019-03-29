@@ -1,4 +1,4 @@
-node('maven'){
+node('awscli'){
     
     def maven360home = tool name: 'maven360', type: 'maven'
     
