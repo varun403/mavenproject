@@ -7,20 +7,26 @@ node('awscli'){
     }
     
     
-    stage('Running Tests'){
-        sh "$maven360home/bin/mvn clean test surefire-report:report-only"
-        junit allowEmptyResults: true, testResults: 'target/surefire-reports/*.xml'
-        publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, keepAll: false, reportDir: 'target/site', reportFiles: 'surefire-report.html', reportName: 'SureFireReportHTML', reportTitles: ''])
-    }
+    // stage('Running Tests'){
+    //     sh "$maven360home/bin/mvn clean test surefire-report:report-only"
+    //     junit allowEmptyResults: true, testResults: 'target/surefire-reports/*.xml'
+    //     publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, keepAll: false, reportDir: 'target/site', reportFiles: 'surefire-report.html', reportName: 'SureFireReportHTML', reportTitles: ''])
+    // }
     
-    stage('Building'){
-        sh "$maven360home/bin/mvn clean package -DskipTests=true"
-    }
+    // stage('Building'){
+    //     sh "$maven360home/bin/mvn clean package -DskipTests=true"
+    // }
   
-    stage('Archive Artifacts'){
-        archiveArtifacts '**/target/*.jar'
-    }
+    // stage('Archive Artifacts'){
+    //     archiveArtifacts '**/target/*.jar'
+    // }
 
+    stage('Build'){
+        sh '''
+            mkdir target
+            touch target/my-app-1-RELEASE.jar
+        '''
+    }
 
     stage('Backup the JAR') {
         withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', accessKeyVariable: 'AWS_ACCESS_KEY_ID', credentialsId: 'aws-cli-2', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY']]) {
