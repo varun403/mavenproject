@@ -4,7 +4,7 @@ node('docker'){
         git brach: 'docker' credentialsId: 'lokigithubapikey', url: 'https://github.com/lokeshkamalay/simple-java-maven-app.git'
     }
     stage('Executing Test Cases'){
-        docker('lokeshkamalay/batch2:maven').inside(){
+        docker.image('lokeshkamalay/batch2:maven').inside(){
             echo "Execuring Test Cases Started"
             sh "$mvnHome/bin/mvn clean test surefire-report:report-only"
             archiveArtifacts 'target/**/*'
