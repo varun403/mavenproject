@@ -7,15 +7,11 @@ node('docker'){
     stage('Executing Test Cases'){
         docker.image('lokeshkamalay/batch2:maven').inside(){
             echo "Execuring Test Cases Started"
-            sh "mvn clean test surefire-report:report-only"
+            sh "mvn clean package surefire-report:report-only"
             archiveArtifacts 'target/**/*'
             junit allowEmptyResults: true, testResults: 'target/surefire-reports/*.xml'
             publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, keepAll: false, reportDir: 'target/site', reportFiles: 'surefire-report.html', reportName: 'SureFireReportHTML', reportTitles: ''])
             echo "Executing Test Cases Completed"
         }
-    }
-    stage('Packaging'){
-        echo "Preparing artifacts"
-        sh "mvn package -DskipTests=true"
     }
 }
