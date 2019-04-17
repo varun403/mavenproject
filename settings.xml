@@ -11,12 +11,12 @@
 		<server>
 			<id>artifactory-snapshots</id>
 			<username>admin</username>
-			<password>password</password>
+			<password>sq@admin</password>
 		</server>
 		<server>
 			<id>artifactory-releases</id>
 			<username>admin</username>
-			<password>password</password>
+			<password>sq@admin</password>
 		</server>
 	</servers>
 	
@@ -25,7 +25,7 @@
 			<id>artifactory</id>
 			<mirrorOf>central</mirrorOf>
 			<name>internal Central</name>
-			<url>http://fa1b7800.ngrok.io/artifactory/maven/</url>
+			<url>http://7cc09973.ngrok.io/artifactory/sq-virtual-snapshots</url>
 		</mirror>
 	</mirrors>	
 </settings>
