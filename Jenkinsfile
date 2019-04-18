@@ -7,7 +7,7 @@ node('docker'){
     stage('Executing Test Cases'){
         docker.image('lokeshkamalay/batch2:maven').inside(){
             echo "Execuring Test Cases Started"
-            sh "mvn clean deploy"
+            sh "mvn clean deploy --settings settings.xml"
         }
     }
 }
