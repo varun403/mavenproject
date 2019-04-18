@@ -11,12 +11,12 @@
 		<server>
 			<id>artifactory-snapshots</id>
 			<username>admin</username>
-			<password>sq@admin</password>
+			<password>admin@sq</password>
 		</server>
 		<server>
 			<id>artifactory-releases</id>
 			<username>admin</username>
-			<password>sq@admin</password>
+			<password>admin@sq</password>
 		</server>
 	</servers>
 	
