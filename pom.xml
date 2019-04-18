@@ -4,7 +4,7 @@
   <groupId>com.mycompany.app</groupId>
   <artifactId>my-app</artifactId>
   <packaging>jar</packaging>
-  <version>1-RELEASE</version>
+  <version>1.0.0-SNAPSHOT</version>
   <name>my-app</name>
   <url>http://maven.apache.org</url>
   <dependencies>
@@ -51,7 +51,7 @@
      <repository>
         <id>artifactory-releases</id>
         <name>artifactory</name>
-        <url>http://7cc09973.ngrok.io/artifactory/sq-virtual-snapshots</url>
+        <url>http://7cc09973.ngrok.io/artifactory/sq-local-releases</url>
     </repository>
     <snapshotRepository>
         <id>artifactory-snapshots</id>
