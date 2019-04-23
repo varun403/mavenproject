@@ -1,0 +1,30 @@
+pipeline{
+    agent { 
+        docker {
+            image 'maven:latest'
+            label 'docker'
+        }
+    }
+    environment { 
+        SONAR = credentials('sonar-login')
+        SONAR_URL = "http://fceed723.ngrok.io"
+    }
+    stages {
+        stage('Build'){
+            steps {
+                sh "mvn sonar:sonar -Dsonar.host.url=$SONAR_URL -Dsonar.login=$SONAR"
+            }
+        }
+    }
+    post {
+        always {
+            deleteDir()
+        }
+        failure {
+            echo "I failed"
+        }
+        success {
+            echo "mail me"
+        }
+    }
+}
