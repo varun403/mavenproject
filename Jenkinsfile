@@ -7,7 +7,9 @@ node('docker'){
     stage('Executing Test Cases'){
         docker.image('lokeshkamalay/batch2:maven').inside(){
             echo "Execuring Test Cases Started"
-            sh "mvn sonar:sonar -Dsonar.host.url=http://00c56ae0.ngrok.io -Dsonar.login=094b7cce8f51999a937019871a5624494272e81e"
+            withCredentials([string(credentialsId: 'sonar-login', variable: 'sonar-login')]) {
+                sh "mvn sonar:sonar -Dsonar.host.url=http://fceed723.ngrok.io -Dsonar.login=$sonar-login"
+            }
         }
     }
 }
