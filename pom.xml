@@ -42,17 +42,5 @@
             <version>2.3</version>
         </plugin>
     </plugins>
-</reporting>
-<distributionManagement>
-    <repository>
-        <id>artifactory-releases</id>
-        <name>maven</name>
-        <url>http://fa1b7800.ngrok.io/artifactory/maven</url>
-    </repository>
-    <snapshotRepository>
-        <id>artifactory-snapshots</id>
-        <name>artifactory</name>
-        <url>http://fa1b7800.ngrok.io/artifactory/maven</url>
-    </snapshotRepository>
-</distributionManagement>  
+</reporting> 
 </project>
