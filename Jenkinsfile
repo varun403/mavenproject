@@ -1,4 +1,5 @@
 node('demo'){
+    properties([[$class: 'JiraProjectProperty'], parameters([choice(choices: ['dev', 'test', 'prod'], description: 'Choose the environment that you want the package to be promoted.', name: 'targetEnv')])])
     def mvnHome = tool name: 'maven362', type: 'maven'
     def user = "ec2-user"
     def target = ""
