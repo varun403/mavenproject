@@ -4,7 +4,7 @@ node('demo'){
     def user = "ec2-user"
     def target = ""
     stage('checkout'){
-        git credentialsId: 'lokigithubaccount', url: 'https://github.com/lokeshkamalay/simple-java-maven-app.git'
+        git branch: 'batch4', credentialsId: 'lokigithubaccount', url: 'https://github.com/lokeshkamalay/simple-java-maven-app.git'
     }
     stage('Maven Test'){
         sh "$mvnHome/bin/mvn clean test surefire-report:report-only"
