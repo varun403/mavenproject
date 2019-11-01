@@ -30,7 +30,7 @@ node('demo'){
     }
 }
 
-//this is the function
+//this is the function test
 def getTarget(params) {
     if (params == 'dev') {
         return("172.31.88.172")
