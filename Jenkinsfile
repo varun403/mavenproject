@@ -25,18 +25,18 @@ pipeline {
             steps {
                 sh "mvn clean package"
             }
+            post {
+                success {
+                    echo "Successful"
+                }
+                failure {
+                    echo "Failed"
+                }
+                always {
+                    deleteDir()
+                }
+            }
         }
-        post {
-        success {
-            echo "Successful"
-        }
-        failure {
-            echo "Failed"
-        }
-        always {
-            deleteDir()
-        }
-    }
     }
 }
 
