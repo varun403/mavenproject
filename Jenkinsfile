@@ -7,7 +7,7 @@ pipeline {
         stage('checkout'){
             agent {
                 docker {
-                    image 'git'
+                    image 'cloudbees/jnlp-slave-with-java-build-tools'
                     label 'docker'
                 }
             }
