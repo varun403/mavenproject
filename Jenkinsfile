@@ -26,8 +26,7 @@ pipeline {
                 sh "mvn clean package"
             }
         }
-    }
-    post {
+        post {
         success {
             echo "Successful"
         }
@@ -37,6 +36,7 @@ pipeline {
         always {
             deleteDir()
         }
+    }
     }
 }
 
