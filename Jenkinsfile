@@ -16,13 +16,13 @@ pipeline {
             steps {
                 sh "mvn package"
             }
-        }
-        post {
-            success {
-                echo "Inside Packaging stage - Success"
-            }
-            always {
-                echo "Inside Packaging stage - Always"
+            post {
+                success {
+                    echo "Inside Packaging stage - Success"
+                }
+                always {
+                    echo "Inside Packaging stage - Always"
+                }
             }
         }
     }
