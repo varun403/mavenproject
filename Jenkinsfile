@@ -28,6 +28,7 @@ pipeline {
         }
         stage('Deploy'){
             steps {
+                input message: 'Do you want to me to deploy?', ok: 'Approve'
                 sshagent(['uta-dev']) {
                     sh "scp -o StrictHostKeyChecking=no target/my-app-1-RELEASE.jar ubuntu@172.31.84.164:/home/ubuntu"
                 }
