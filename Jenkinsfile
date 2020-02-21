@@ -31,6 +31,8 @@ pipeline {
         }
         stage('Deploy'){
             steps {
+                def value = testing("Dev")
+                print (value)
                 //sh "mail -s 'the job is waiting for your approval' lokesh.mydilse@gmail.com"
                 input message: 'Do you want to me to deploy?', ok: 'Approve'
                 sshagent(['uta-dev']) {
@@ -50,6 +52,10 @@ pipeline {
             echo "Work hard"
         }
     }
+}
+
+def testing(server){
+    return "Dev"
 }
 
 
