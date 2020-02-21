@@ -29,7 +29,7 @@ pipeline {
         stage('Deploy'){
             steps {
                 sshagent(['uta-dev']) {
-                    sh "scp target/my-app-1-RELEASE.jar ubuntu@172.31.84.164:/home/ubuntu"
+                    sh "scp -o StrictHostKeyChecking=no target/my-app-1-RELEASE.jar ubuntu@172.31.84.164:/home/ubuntu"
                 }
             }
         }
