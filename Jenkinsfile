@@ -6,6 +6,9 @@ pipeline {
         jdk 'openjdk8'
         maven 'maven363'
     }
+    options {
+        timeout(time: 5, unit: 'SECONDS')
+    }
     stages {
         stage('Test') {
             steps {
@@ -28,6 +31,7 @@ pipeline {
         }
         stage('Deploy'){
             steps {
+                //sh "mail -s 'the job is waiting for your approval' lokesh.mydilse@gmail.com"
                 input message: 'Do you want to me to deploy?', ok: 'Approve'
                 sshagent(['uta-dev']) {
                     sh "scp -o StrictHostKeyChecking=no target/my-app-1-RELEASE.jar ubuntu@172.31.84.164:/home/ubuntu"
