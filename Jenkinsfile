@@ -33,7 +33,7 @@ pipeline {
             steps {
                 sh """
                     docker build -t lokeshkamalay/uta-test:dockertest .
-                    docker login -u ${DOCKER_CREDS_USR} -p ${DOCKER_CREDS_PWD}
+                    docker login -u ${DOCKER_CREDS_USR} -p ${DOCKER_CREDS_PSW}
                     docker push lokeshkamalay/uta-test:dockertest
                 """
             }
