@@ -33,12 +33,21 @@ pipeline {
             steps {
                 sh "mvn clean package"
             }
+            post {
+                success {
+                    stash includes: 'target/*.jar', name: 'myartifacts'
+                }
+                always {
+                    deleteDir()
+                }
+            }
         }
         stage('Create-Image') {
             agent {
                 label 'docker'
             }
             steps {
+                unstash 'myartifacts'
                 sh """
                     docker build -t lokeshkamalay/uta-test:dockertest .
                     docker login -u ${DOCKER_CREDS_USR} -p ${DOCKER_CREDS_PSW}
