@@ -20,7 +20,15 @@ pipeline {
     environment {
         DOCKER_CREDS = credentials('dockerhub-id')
     }
+    options {
+        skipDefaultCheckout()
+    }
     stages {
+        stage ('Checkout') {
+            steps {
+                checkout scm
+            }
+        }
         stage('Build') {
             steps {
                 sh "mvn clean package"
