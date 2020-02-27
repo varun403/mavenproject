@@ -27,6 +27,9 @@ pipeline {
             }
         }
         stage('Create-Image') {
+            agent {
+                label 'docker'
+            }
             steps {
                 sh """
                     docker build -t lokeshkamalay/uta-test:dockertest .
