@@ -1,120 +1,26 @@
 pipeline {
     agent {
-        label 'maven'
-    }
-    tools {
-        jdk 'openjdk8'
-        maven 'maven363'
-    }
-    parameters {
-        choice choices: ['Dev', 'Test', 'Prod'], description: 'Environment details', name: 'target_server'
-    }
-    options {
-        timeout(time: 60, unit: 'SECONDS')
+        docker {
+            image 'lokeshkamalay/uta-test:good'
+            label 'docker'
+        }
     }
     stages {
-        stage('Test') {
+        stage('Build') {
             steps {
-                sh "mvn clean test surefire-report:report-only"
-                publishHTML([allowMissing: true, alwaysLinkToLastBuild: false, keepAll: false, reportDir: 'target/site', reportFiles: 'surefire-report.html', reportName: 'TestReport', reportTitles: ''])
-            }
-        }
-        stage('Packaging') {
-            steps {
-                sh "mvn package -DskipTests=true"
-            }
-            post {
-                success {
-                    echo "Inside Packaging stage - Success"
-                }
-                always {
-                    echo "Inside Packaging stage - Always"
-                }
-            }
-        }
-        stage('Deploy'){
-            steps {
-                input message: 'Do you want to me to deploy?', ok: 'Approve'
-                script {
-                    def target = getTargetIp(params.target_server)
-                    sshagent(['uta-dev']) {
-                        sh "scp -o StrictHostKeyChecking=no target/my-app-1-RELEASE.jar ubuntu@${target}:/home/ubuntu"
-                    }
-                }
+                sh "mvn clean package"
             }
         }
     }
     post {
         success {
-            echo "Good Job"
+            echo "Good Job Docker!"
         }
         failure {
-            echo "Improve the skills"
+            echo "I did mistake, let me fix"
         }
         always {
-            echo "Work hard"
+            deleteDir()
         }
     }
 }
-
-def getTargetIp(target_env) {
-    if (target_env == "Dev") {
-        return "172.31.84.164"
-    } else if (target_env == "Test") {
-        return "0.0.0.0"
-    } else if (target_env == "Prod") {
-        return "1.1.1.1"
-    }
-
-}
-
-
-// // node('docker'){
-// //     stage('checkout'){
-// //         echo "Checking the Git code"
-// //         //git brach: 'docker' credentialsId: 'lokigithubapikey', url: 'https://github.com/lokeshkamalay/simple-java-maven-app.git'
-// //         checkout scm
-// //     }
-// //     stage('Executing Test Cases'){
-// //         docker.image('lokeshkamalay/batch2:maven').inside(){
-// //             echo "Execuring Test Cases Started"
-// //             sh "mvn clean deploy"
-// //         }
-// //     }
-// // }
-
-
-
-
-// /*node('mavenbuilds'){
-//     def mvnHome = tool name: 'maven354', type: 'maven'
-//     stage('checkout'){
-//         echo "Checking the Git code"
-//         git credentialsId: 'lokigithubapikey', url: 'https://github.com/lokeshkamalay/simple-java-maven-app.git'
-//     }
-//     stage('Executing Test Cases'){
-//         echo "Execuring Test Cases Started"
-//         sh "$mvnHome/bin/mvn clean test surefire-report:report-only"
-//         archiveArtifacts 'target/**/*'
-//         junit allowEmptyResults: true, testResults: 'target/surefire-reports/*.xml'
-//         publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, keepAll: false, reportDir: 'target/site', reportFiles: 'surefire-report.html', reportName: 'SureFireReportHTML', reportTitles: ''])
-//         echo "Executing Test Cases Completed"
-//     }
-//     //stage('Sonar Analysis'){
-//     //    sh "$mvnHome/bin/mvn sonar:sonar -Dsonar.host.url=http://aefdc217.ngrok.io -Dsonar.login=d08d80d05ae55ae9de4ca22bc2fd5140c1308ee2"
-//     //}
-//     stage('Packaging'){
-//         echo "Preparing artifacts"
-//         sh "$mvnHome/bin/mvn package -DskipTests=true"
-//     }
-//     stage('Push to artifactory'){
-//           sh "$mvnHome/bin/mvn deploy -DskipTests=true --settings settings.xml"
-//     }
-//     stage('Deployments'){
-//         sh 'curl http://fa1b7800.ngrok.io/artifactory/maven-local/com/mycompany/app/my-app/1-RELEASE/my-app-1-RELEASE.jar -o my-app.jar'
-//         sshagent(['deployment-id']) {
-//             sh 'scp -o StrictHostKeyChecking=no my-app.jar ubuntu@172.31.94.69:~/'
-//         }
-
-//     }
-// }*/
