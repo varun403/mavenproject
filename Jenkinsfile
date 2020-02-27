@@ -11,33 +11,26 @@
 
 
 pipeline {
-    agent {
-        docker {
-            image 'lokeshkamalay/uta-test:good'
-            label 'docker'
-        }
-    }
+    agent none
+    
     environment {
         DOCKER_CREDS = credentials('dockerhub-id')
     }
-    options {
-        skipDefaultCheckout()
-    }
     stages {
-        stage ('Checkout') {
+        stage('Build') {
+            agent {
+                docker {
+                    image 'lokeshkamalay/uta-test:good'
+                    label 'docker'
+                }
+            }
             steps {
                 checkout scm
-            }
-        }
-        stage('Build') {
-            steps {
                 sh "mvn clean package"
             }
             post {
                 success {
-                    stash includes: 'target/*.jar', name: 'myartifacts'
-                }
-                always {
+                    stash includes: 'target/my-app-1-RELEASE.jar', name: 'myartifacts'
                     deleteDir()
                 }
             }
@@ -54,17 +47,11 @@ pipeline {
                     docker push lokeshkamalay/uta-test:dockertest
                 """
             }
-        }
-    }
-    post {
-        success {
-            echo "Good Job Docker!"
-        }
-        failure {
-            echo "I did mistake, let me fix"
-        }
-        always {
-            deleteDir()
+            post {
+                always {
+                    deleteDir()
+                }
+            }
         }
     }
 }
