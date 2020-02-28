@@ -1,0 +1,27 @@
+pipeline {
+    agent none
+    stages {
+        stage('Testing'){
+            parallel {
+                stage('docker'){
+                    agent {
+                        label 'docker'
+                    }
+                    steps {
+                        sh "docker images"
+                        sh "sleep 30"
+                    }
+                }
+                stage('cloud'){
+                    agent {
+                        label 'uta-ec2'
+                    }
+                    steps {
+                        sh "java -version"
+                        sh "sleep 30"
+                    }
+                }
+            }
+        }
+    }
+}
