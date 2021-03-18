@@ -1,6 +1,8 @@
 pipeline{
     agent any
-    
+    environment{
+        PATH = "/opt/apps/maven/apache-maven-3.6.3/bin:$PATH"
+      }
     stages{
         stage('checkout'){
             steps{
@@ -9,7 +11,7 @@ pipeline{
         }
         stage('Build'){
             steps{
-                sh "cd /var/lib/jenkins/workspace/maven-project \n /opt/apps/maven/apache-maven-3.6.3/bin clean "
+                sh "mvn clean install "
             }
         }
     }
