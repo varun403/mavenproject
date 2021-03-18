@@ -1,5 +1,6 @@
 pipeline{
     agent any
+    
     stages{
         stage('checkout'){
             steps{
@@ -8,7 +9,7 @@ pipeline{
         }
         stage('Build'){
             steps{
-                sh "cd /var/lib/jenkins/workspace/maven-project@tmp \n /opt/apps/maven/apache-maven-3.6.3 clean "
+                sh "cd /var/lib/jenkins/workspace/maven-project \n /opt/apps/maven/apache-maven-3.6.3 clean "
             }
         }
     }
