@@ -3,6 +3,12 @@ pipeline{
     environment{
         PATH = "/opt/apps/maven/apache-maven-3.6.3/bin:$PATH"
       }
+      options {
+        buildDiscarder logRotator(artifactDaysToKeepStr: '', artifactNumToKeepStr: '', daysToKeepStr: '3', numToKeepStr: '5')
+        timestamps
+        timeout(10)
+      }
+
     stages{
         stage('checkout'){
             steps{
@@ -11,7 +17,7 @@ pipeline{
         }
         stage('Build'){
             steps{
-                sh "mvn clean install -Dskiptests "
+                sh "mvn clean package -Dskiptests "
             }
         }
         stage('Test'){
