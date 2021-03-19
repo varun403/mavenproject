@@ -4,9 +4,10 @@ pipeline{
         PATH = "/opt/apps/maven/apache-maven-3.6.3/bin:$PATH"
       }
       options {
-        buildDiscarder logRotator(artifactDaysToKeepStr: '', artifactNumToKeepStr: '', daysToKeepStr: '3', numToKeepStr: '5')
         timestamps
         timeout(10)
+        buildDiscarder logRotator(artifactDaysToKeepStr: '', artifactNumToKeepStr: '', daysToKeepStr: '3', numToKeepStr: '5')
+        
       }
 
     stages{
